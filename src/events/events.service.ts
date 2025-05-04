@@ -1,26 +1,26 @@
 import { Injectable } from '@nestjs/common';
 import { CreateEventDto } from './dto/create-event.dto';
-import { UpdateEventDto } from './dto/update-event.dto';
+import { Event } from './entities/event.entity';
 
 @Injectable()
 export class EventsService {
-  create(createEventDto: CreateEventDto) {
-    return 'This action adds a new event';
+  private events: Event[] = [];
+  private nextId = 1;
+
+  create(createEventDto: CreateEventDto): Event {
+    const event: Event = {
+      id: this.nextId++,
+      ...createEventDto,
+    };
+    this.events.push(event);
+    return event;
   }
 
-  findAll() {
-    return `This action returns all events`;
+  findAll(): Event[] {
+    return this.events;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} event`;
-  }
-
-  update(id: number, updateEventDto: UpdateEventDto) {
-    return `This action updates a #${id} event`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} event`;
+  remove(id: number): void {
+    this.events = this.events.filter(event => event.id !== id);
   }
 }
