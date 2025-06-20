@@ -59,4 +59,4 @@ $ npm run test:e2e
 # test coverage
 $ npm run test:cov
 ```
-To contact me , see my bio
+To contact me , see my bio !
